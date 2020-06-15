@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet' />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id='map' style='width: 800px; height: 600px;'></div>
+  <script>
+    var events = []
+    const getEvents = () => {
+      return fetch("https://edmtrain.com/api/events?locationIds=370&client=b75f3751-421f-40ce-992e-be13390c6864")
+        .then(res => res.json())
+        .then(parsedEvents => {
+          events = parsedEvents.data.slice()
+          console.table(events)
+        })
+    }
+    getEvents().then(markers => {
+      for (const event of events) {
+        var marker = new mapboxgl.Marker().setLngLat([event.venue.longitude, event.venue.latitude]).addTo(map)
+      }
+    })
+
+
+
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic3dlZXR3aWxseTNrIiwiYSI6ImNrYmdwazl1ejE3bTQycG53dnJ0dTlkdDgifQ.TLFnnBjXkVb15lEqaiRLhw';
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+      center: [-86.7816, 36.1627], // starting position [lng, lat]
+      zoom: 9 // starting zoom
+    });
+
+
+
+  </script>
+</body>
+
+</html>
