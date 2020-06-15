@@ -24,7 +24,8 @@
     }
     getEvents().then(markers => {
       for (const event of events) {
-        var marker = new mapboxgl.Marker().setLngLat([event.venue.longitude, event.venue.latitude]).addTo(map)
+        var marker = new mapboxgl.Marker().setLngLat([event.venue.longitude, event.venue.latitude])
+          .setPopup(new mapboxgl.Popup().setHTML(`<h1>${event.venue.name}</h1>`)).addTo(map)
       }
     })
 
