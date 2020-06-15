@@ -1,0 +1,5 @@
+version: 2
+main:
+  type: static
+  path: EDMTrain-eventmap
+  spa: false
